@@ -3,7 +3,7 @@
 namespace app\assets;
 
 use yii\web\AssetBundle;
-asdasdasd
+
 class AppAsset extends AssetBundle
 {
     public $basePath = '@webroot';
