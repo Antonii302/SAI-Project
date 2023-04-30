@@ -1,5 +1,7 @@
 <?php
 
+use app\assets\AppAsset;
+
 use yii\helpers\Html;
 
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
