@@ -1,0 +1,6 @@
+.profile-image {
+    height: 38px;
+    width: 38px;
+    object-fit: cover;
+    object-position: center;
+}

@@ -1,65 +1,100 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="<?=$assetDir?>/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+<?php 
 
+use yii\helpers\Url;
+
+?>
+
+<aside class="main-sidebar sidebar-light-primary elevation-1">
+    <!-- Brand Logo -->
+    <a href="<?=  Url::home(); ?>" class="brand-link">
+        <img src="<?= Yii::$app->request->hostInfo . '/images/about-website/alcaldía-san-miguel-logotipo.jpg'; ?>" class="brand-image" alt="Logotipo | Alcaldía de San Miguel"/>
+        <span class="brand-text font-weight-light">Proyecto S.A.I</span>
+    </a>
+    
     <!-- Sidebar -->
     <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
-                <img src="<?=$assetDir?>/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                <img src="<?= Yii::$app->request->hostInfo . '/images/user-account/perfil-usuario.jpg'; ?>" class="img-circle elevation-1" style="width: 38px; height: 38px; object-fit: cover; object-position: center;" alt="Perfil de usuario">
             </div>
             <div class="info">
-                <a href="#" class="d-block">Alexander Pierce</a>
+                <a href="#" class="d-block">[placeholder]</a>
             </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-            <?php
-            echo \hail812\adminlte\widgets\Menu::widget([
+            <?=
+            \hail812\adminlte\widgets\Menu::widget([
                 'items' => [
                     [
-                        'label' => 'Starter Pages',
+                        'label' => 'Panel de control',
                         'icon' => 'tachometer-alt',
-                        'badge' => '<span class="right badge badge-info">2</span>',
-                        'items' => [
-                            ['label' => 'Active Page', 'url' => ['site/index'], 'iconStyle' => 'far'],
-                            ['label' => 'Inactive Page', 'iconStyle' => 'far'],
-                        ]
+                        'url' => ['/site/index']
                     ],
-                    ['label' => 'Simple Link', 'icon' => 'th', 'badge' => '<span class="right badge badge-danger">New</span>'],
-                    ['label' => 'Yii2 PROVIDED', 'header' => true],
-                    ['label' => 'Login', 'url' => ['site/login'], 'icon' => 'sign-in-alt', 'visible' => Yii::$app->user->isGuest],
-                    ['label' => 'Gii',  'icon' => 'file-code', 'url' => ['/gii'], 'target' => '_blank'],
-                    ['label' => 'Debug', 'icon' => 'bug', 'url' => ['/debug'], 'target' => '_blank'],
-                    ['label' => 'MULTI LEVEL EXAMPLE', 'header' => true],
-                    ['label' => 'Level1'],
                     [
-                        'label' => 'Level1',
+                        
+                        'label' => 'Actividad de almacén',
+                        'icon' => 'dolly-flatbed',
                         'items' => [
-                            ['label' => 'Level2', 'iconStyle' => 'far'],
                             [
-                                'label' => 'Level2',
-                                'iconStyle' => 'far',
-                                'items' => [
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                                    ['label' => 'Level3', 'iconStyle' => 'far', 'icon' => 'dot-circle']
-                                ]
+                                'header' => true,
+                                'label' => 'Inventario',
+                                'icon' => 'dolly-flatbed'
                             ],
-                            ['label' => 'Level2', 'iconStyle' => 'far']
+                            [
+                                'label' => 'Administración de categorías',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle'
+                            ],
+                            [
+                                'label' => 'Administración de productos',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle'
+                            ],
+                            [
+                                'label' => 'Administración de unidades de medida',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle'
+                            ]
                         ]
                     ],
-                    ['label' => 'Level1'],
-                    ['label' => 'LABELS', 'header' => true],
-                    ['label' => 'Important', 'iconStyle' => 'far', 'iconClassAdded' => 'text-danger'],
-                    ['label' => 'Warning', 'iconClass' => 'nav-icon far fa-circle text-warning'],
-                    ['label' => 'Informational', 'iconStyle' => 'far', 'iconClassAdded' => 'text-info'],
-                ],
+                    [
+                        
+                        'label' => 'Procesos generales',
+                        'icon' => 'cogs',
+                        'items' => [
+                            [
+                                'label' => 'Administración de divisiones departamentales',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle'
+                            ],
+                            [
+                                'label' => 'Administración de presupuestos de inventario anual',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle'
+                            ]
+                        ]
+                    ],
+                    [
+                        'label' => 'Permisos de acceso | Sistema de Inventario',
+                        'icon' => 'user-lock',
+                        'items' => [
+                            [
+                                'label' => 'Administración de usuarios',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle',
+                                'url' => ['']
+                            ]
+                        ]
+                    ],
+                    [
+                        'label' => 'Gii',
+                        'icon' => 'bug',
+                        'url' => ['/gii']
+                    ]
+                ]
             ]);
             ?>
         </nav>
