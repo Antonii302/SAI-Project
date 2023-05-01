@@ -33,7 +33,7 @@ AppAsset::register($this);
     <?php $this->head() ?>
 
 </head>
-<body class="hold-transition sidebar-mini">
+<body class="hold-transition layout-fixed">
 
 <?php $this->beginBody() ?>
 
