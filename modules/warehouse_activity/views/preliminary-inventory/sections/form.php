@@ -59,6 +59,23 @@ use kartik\date\DatePicker;
             <div class="bg-light rounded p-2">
                 <p class="text-red">Aún no añades producto alguno.</p>
             </div>
+            <!-- Table -->
+            <table class="table table-borderless">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                        <th scope="col">#</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+            <!-- ./table -->
         </div>
     </div>
     <!-- ./card -->
