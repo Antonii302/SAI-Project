@@ -61,7 +61,7 @@ use yii\helpers\Html;
                         <div class="card-body p-1">
                             <!-- List group -->
                             <div class="list-group list-group-flush">
-                                <a type="button" class="list-group-item list-group-item-action rounded border-0 p-2">
+                                <a class="list-group-item list-group-item-action rounded border-0 p-2">
                                     <div class="media">
                                         <img src="<?= Yii::$app->request->hostInfo . '/images/user-account/perfil-usuario.jpg'; ?>" class="profile-image img-circle mr-3" alt="[placeholder]">
                                         <div class="media-body">
