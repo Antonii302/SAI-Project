@@ -1,0 +1,4 @@
+/* Remove red * in required fields*/
+.required label::after {
+    display: none;
+}

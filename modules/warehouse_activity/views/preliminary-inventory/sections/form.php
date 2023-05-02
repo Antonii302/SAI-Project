@@ -22,23 +22,18 @@ use kartik\date\DatePicker;
             'autocomplete' => 'off'
         ],
         'fieldConfig' => [
-            'template' => '{label} {input} <div style="margin-top: 5px; margin-bottom: 5px; height: 10px;">{error}</div>'
+            'template' => '{input} <div class="d-block" style="margin-top: 5px; margin-bottom: 12px; height: 25px;">{error}</div>'
         ]
     ]);
     ?>
     <!-- Card -->
     <div class="card" style="border-radius: 0 0 12px 12px;">
-        <div class="card-body">
+        <div class="card-body p-2">
             <?= 
             CheckboxX::widget([
                 'name' => 'inventory_type',
                 'options' => [
                     'id' => 'inventory_type'
-                ],
-                'labelSettings' => [
-                    'label' => 'Almacenamiento como INVENTARIO PRELIMINAR',
-                    'position' => CheckboxX::LABEL_RIGHT,
-                    'options' => ['class' => 'text-muted ml-3']
                 ],
                 'pluginOptions'=>[
                     'threeState' => false,
@@ -46,50 +41,42 @@ use kartik\date\DatePicker;
                 ]
             ]);
             ?>
+            <label class="cbx-label d-inline float-rigth text-muted ml-3" for="inventory_type">¿Almacenar como INVENTARIO PRELIMINAR?</label> <!-- ./form field -->
         </div> <!-- ./card body -->
         <div class="card-footer">
-            <?= Html::button('<i class="fas fa-plus"></i> Guardar en inventario', ['type' => 'submit', 'class' => 'btn w-100 btn-sm btn-primary']); ?>
+            <?= Html::button('<i class="fas fa-plus"></i> Guardar registros', ['type' => 'submit', 'class' => 'btn w-100 btn-sm btn-primary']); ?>
         </div> <!-- ./card footer -->
     </div>
     <!-- ./card -->
 
     <!-- Card -->
     <div class="card">
-        <div class="card-body">
-            <div class="bg-light rounded p-2">
-                <p class="text-red">Aún no añades producto alguno.</p>
+        <div class="card-body p-1">
+            <div class="container-fluid">
+                <div id="no-records-alert" class="bg-light rounded p-2">
+                    <span class="text-muted text-red">No se han encontrado registros.</span>
+                </div>
+                <div id="records-list" class="p-2" style="max-height: 420px; overflow-y: auto; overflow-x: hidden;"></div>
             </div>
-            <!-- Table -->
-            <table class="table table-borderless">
-                <thead>
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
-                        <th scope="col">#</th>
-                    </tr>
-                </thead>
-                <tbody>
-
-                </tbody>
-            </table>
-            <!-- ./table -->
-        </div>
+        </div> <!-- ./card body -->
+        <div class="card-footer">
+            <small id="total-records">[] registros totales</small>
+        </div> <!-- ./card footer -->
     </div>
     <!-- ./card -->
 
     <!-- Card -->
     <div class="card" style="border-radius: 12px 12px 0 0;">
-        <div class="card-header border-0">
-
-        </div> <!-- ./card header -->
         <div class="card-body p-1">
             <div class="container-fluid">
-                <div class="row">
+                <div class="row mb-2">
+                    <div class="col">
+                        <?= Html::button('<i class="fas fa-plus"></i>', ['type' => 'button', 'title' => 'Añadir registro', 'id' => 'add-record', 'class' => 'btn btn-sm float-right bg-blue']); ?>
+                    </div> <!-- ./col -->
+                </div>
+                <div class="form-row" class="row mb-4">
                     <div class="col-12 col-sm-4">
-                        <?= $form->field($model, 'product')->widget(Select2::class, [
+                        <?= $form->field($model, 'product[]')->widget(Select2::class, [
                             'data' => ArrayHelper::map(Product::find()->orderBy('description')->all(), 'id', 'description'),
                             'size' => Select2::SMALL,
                             'options' => ['placeholder' => 'Selecciona un producto'],
@@ -100,9 +87,6 @@ use kartik\date\DatePicker;
                     </div> <!-- ./col -->
                     <div class="col-12 col-sm-2">
                         <?= $form->field($model, 'total_units')->widget(NumberControl::class, [
-                            'options' => [
-                                'type' => 'text'
-                            ],
                             'maskedInputOptions' => [
                                 'allowMinus' => false
                             ],
@@ -114,16 +98,13 @@ use kartik\date\DatePicker;
                     </div> <!-- ./col -->
                     <div class="col-12 col-sm-2">
                         <?= $form->field($model, 'unit_price')->widget(NumberControl::class, [
-                            'options' => [
-                                'type' => 'text'
-                            ],
                             'maskedInputOptions' => [
                                 'prefix' => '$',
                                 'allowMinus' => false
                             ],
                             'displayOptions' => [
                                 'class' => 'form-control form-control-sm kv-monospace',
-                                'placeholder' => '000000.00'
+                                'placeholder' => '999,999.99'
                             ]
                         ]); ?> <!-- ./field -->
                     </div> <!-- ./col -->
@@ -135,23 +116,21 @@ use kartik\date\DatePicker;
                             'pluginOptions' => [
                                 'format' => 'dd-mm-yyyy',
                                 'autoclose' => true,
-                                'orientation' => 'bottom',
-                                'todayBtn' => true
+                                'orientation' => 'top',
                             ],
                             'size' => 'sm',
                             'options' => ['placeholder' => '01-01-2023'],
                         ]);?> <!-- ./field -->
                     </div> <!-- ./col -->
-                    <div class="col-12 col-sm-1 m-auto">
-                        <div class="row">
-                            <div class="col-12 mb-2">
-                                <?= Html::button('<i class="fas fa-plus"></i>', ['type' => 'button', 'title' => 'Añadir producto', 'class' => 'btn w-100 btn-sm bg-blue']); ?>
-                            </div> <!-- ./col -->
-                            <div class="col-12">
-                                <?= Html::button('<i class="fab fa-digital-ocean"></i>', ['type' => 'button', 'title' => 'Limpiar formulario', 'class' => 'btn w-100 btn-sm bg-red']); ?>
-                            </div> <!-- ./col -->
-                        </div>
-                    </div>
+                    <div class="col-sm-1">
+                        <?= Html::button('<i class="fab fa-digital-ocean"></i>', ['type' => 'button', 'title' => 'Limpiar formulario', 'id' => 'clean-fields', 'class' => 'btn btn-sm w-100 bg-red']); ?>
+                    </div> <!-- ./col -->
+                </div>
+                <div class="d-none d-sm-flex bg-light rounded p-2 row" role="button">
+                    <div class="col-sm-4"><p class="h6 text-lowercase text-muted">Producto</p></div> <!-- ./col -->
+                    <div class="col-sm-2"><p class="h6 text-lowercase text-muted">Total unidades</p></div> <!-- ./col -->
+                    <div class="col-sm-2"><p class="h6 text-lowercase text-muted">Precio unitario</p></div> <!-- ./col -->
+                    <div class="col-sm-3"><p class="h6 text-lowercase text-muted">Fecha de caducidad</p></div> <!-- ./col -->
                 </div>
             </div>
         </div> <!-- ./card body -->

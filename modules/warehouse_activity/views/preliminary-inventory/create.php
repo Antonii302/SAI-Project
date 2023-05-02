@@ -2,8 +2,8 @@
 
 use yii\helpers\Html;
 
-$this->title = 'Create Preliminary Inventory';
-$this->params['breadcrumbs'][] = ['label' => 'Preliminary Inventories', 'url' => ['index']];
+$this->title = 'Nuevo registro';
+$this->params['breadcrumbs'][] = ['label' => 'Inventario preliminar', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 ?>
