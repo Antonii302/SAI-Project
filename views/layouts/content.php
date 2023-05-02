@@ -9,23 +9,12 @@ use yii\bootstrap4\Breadcrumbs;
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h5 class="text-muted m-0">
-                        <?php
-                        if (!is_null($this->title)) {
-                            echo \yii\helpers\Html::encode($this->title);
-                        } else {
-                            echo \yii\helpers\Inflector::camelize($this->context->id);
-                        }
-                        ?>
-                    </h5>
-                </div><!-- /.col -->
-                <div class="col-sm-6">
+                <div class="col bg-white rounded p-3">
                     <?php
                     echo Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
                         'options' => [
-                            'class' => 'breadcrumb float-sm-right'
+                            'class' => 'breadcrumb float-sm-left'
                         ]
                     ]);
                     ?>

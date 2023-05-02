@@ -80,7 +80,7 @@ use yii\helpers\Html;
                     </div>
                     <!-- ./card -->
                 </div>
-                <div class="dropdown-body">
+                <div class="dropdown-footer text-left">
                     <!-- List group-->
                     <div class="list-group list-group-flush">
                         <button type="button" class="list-group-item list-group-item-action">
@@ -93,7 +93,7 @@ use yii\helpers\Html;
                         </button> <!-- ./lis group item -->
                     </div>
                     <!-- ./list group-->
-                </div> <!-- ./dropdown body -->
+                </div> <!-- ./dropdown footer -->
             </div>
             <!-- ./dropdown menu -->
         </li>
