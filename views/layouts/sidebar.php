@@ -35,21 +35,22 @@ use yii\helpers\Url;
                     ],
                     [
                         
-                        'label' => 'Actividad de almacén',
+                        'label' => 'Actividad del depósito',
                         'icon' => 'dolly-flatbed',
                         'items' => [
                             [
+                                'label' => 'Administración de inventario preliminar',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle',
+                                'url' => ['/warehouse-activity/preliminary-inventory/index']
+                            ],
+                            [
                                 'header' => true,
-                                'label' => 'Inventario',
+                                'label' => 'Detalles del producto',
                                 'icon' => 'dolly-flatbed'
                             ],
                             [
                                 'label' => 'Administración de categorías',
-                                'iconStyle' => 'far',
-                                'icon' => 'dot-circle'
-                            ],
-                            [
-                                'label' => 'Administración de productos',
                                 'iconStyle' => 'far',
                                 'icon' => 'dot-circle'
                             ],

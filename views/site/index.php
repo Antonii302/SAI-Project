@@ -10,6 +10,11 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
 
 <div class="container-fluid">
+    <div class="row">
+        <div class="col">
+            <p class="h5 text-truncate text-muted"><?= $this->title; ?></p>
+        </div> <!-- ./col -->
+    </div>
     <!-- Info boxs -->
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">

@@ -14,7 +14,9 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
-        
+        'warehouse-activity' => [
+            'class' => 'app\modules\warehouse_activity\WarehouseActivity',
+        ],
     ],
     'components' => [
         'request' => [
