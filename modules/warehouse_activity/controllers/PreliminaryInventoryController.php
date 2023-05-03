@@ -2,20 +2,22 @@
 
 namespace app\modules\warehouse_activity\controllers;
 
+use Yii;
+use Exception;
+
+use yii\base\Model;
+
 use app\models\PreliminaryInventory;
 use app\modules\warehouse_activity\models\PreliminaryInventorySearch;
+
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
-/**
- * PreliminaryInventoryController implements the CRUD actions for PreliminaryInventory model.
- */
+use caiobrendo\dynamicgridform\Helper;
+
 class PreliminaryInventoryController extends Controller
 {
-    /**
-     * @inheritDoc
-     */
     public function behaviors()
     {
         return array_merge(
@@ -31,28 +33,19 @@ class PreliminaryInventoryController extends Controller
         );
     }
 
-    /**
-     * Lists all PreliminaryInventory models.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
         $searchModel = new PreliminaryInventorySearch();
         $dataProvider = $searchModel->search($this->request->queryParams);
 
+        $dataProvider->pagination->pageSize = 5;
+        
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
     }
 
-    /**
-     * Displays a single PreliminaryInventory model.
-     * @param int $id ID
-     * @return string
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionView($id)
     {
         return $this->render('view', [
@@ -60,41 +53,48 @@ class PreliminaryInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new PreliminaryInventory model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return string|\yii\web\Response
-     */
     public function actionCreate()
     {
-        $model = new PreliminaryInventory();
+        $models = Helper::createMultiple(PreliminaryInventory::class);
 
-        if ($this->request->isPost) {
-            if ($model->load($this->request->post()) && $model->save()) {
-                return $this->redirect(['view', 'id' => $model->id]);
+        if (Model::loadMultiple($models, $this->request->post())) {
+            $transaction = Yii::$app->db->beginTransaction();
+            try {
+                foreach ($models as $model) {
+                    $model->total_units = floatval($model->total_units);
+                    $model->unit_price = floatval($model->unit_price);
+
+                    $model->date_expiry = Yii::$app->formatter->asDate($model->date_expiry, 'yyyy-MM-dd');
+                    
+                    if (!$model->save()) { throw new Exception(); }
+                }
+                $transaction->commit();
+
+                $this->redirect(['index']);
+            } catch (Exception $exception) {
+                $transaction->rollBack();
+                print_r($model->getErrors());
             }
-        } else {
-            $model->loadDefaultValues();
         }
 
         return $this->render('create', [
-            'model' => $model,
+            'models' => $models,
         ]);
     }
 
-    /**
-     * Updates an existing PreliminaryInventory model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        if ($this->request->isPost && $model->load($this->request->post())) {
+            $model->total_units = floatval($model->total_units);
+            $model->unit_price = floatval($model->unit_price);
+
+            $model->date_expiry = Yii::$app->formatter->asDate($model->date_expiry, 'yyyy-MM-dd');
+
+            if ($model->save()) {
+                return $this->redirect(['index']);
+            }
         }
 
         return $this->render('update', [
@@ -102,13 +102,6 @@ class PreliminaryInventoryController extends Controller
         ]);
     }
 
-    /**
-     * Deletes an existing PreliminaryInventory model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -116,13 +109,6 @@ class PreliminaryInventoryController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the PreliminaryInventory model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param int $id ID
-     * @return PreliminaryInventory the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     protected function findModel($id)
     {
         if (($model = PreliminaryInventory::findOne(['id' => $id])) !== null) {

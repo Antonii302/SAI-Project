@@ -9,10 +9,9 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="preliminary-inventory-create">
-    <p class="h5 text-truncate text-muted"><?= $this->title; ?></p>
 
-    <?= $this->render('sections/form', [
-        'model' => $model,
+    <?= $this->render('sections/create.form.php', [
+        'models' => $models
     ]) ?>
 
 </div>

@@ -39,10 +39,16 @@ use yii\helpers\Url;
                         'icon' => 'dolly-flatbed',
                         'items' => [
                             [
-                                'label' => 'Administración de inventario preliminar',
+                                'label' => 'Administración de inventario',
                                 'iconStyle' => 'far',
                                 'icon' => 'dot-circle',
                                 'url' => ['/warehouse-activity/preliminary-inventory/index']
+                            ],
+                            [
+                                'label' => 'Transaction de productos',
+                                'iconStyle' => 'far',
+                                'icon' => 'dot-circle',
+                                'url' => ['/warehouse-activity/product-transaction/index']
                             ],
                             [
                                 'header' => true,
@@ -74,7 +80,8 @@ use yii\helpers\Url;
                             [
                                 'label' => 'Administración de presupuestos de inventario anual',
                                 'iconStyle' => 'far',
-                                'icon' => 'dot-circle'
+                                'icon' => 'dot-circle',
+                                'url' => ['/general-processes/annual-inventory-budget/index']
                             ]
                         ]
                     ],
