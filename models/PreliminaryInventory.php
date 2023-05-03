@@ -4,17 +4,6 @@ namespace app\models;
 
 use Yii;
 
-/**
- * This is the model class for table "preliminary_inventory".
- *
- * @property int $id
- * @property int $product
- * @property float $total_units
- * @property float $unit_price
- * @property string|null $date_expiry
- *
- * @property Product $product0
- */
 class PreliminaryInventory extends \yii\db\ActiveRecord
 {
     public static function tableName()
@@ -38,8 +27,8 @@ class PreliminaryInventory extends \yii\db\ActiveRecord
         return [
             'id' => 'Identificador',
             'product' => 'Producto',
-            'total_units' => 'Unidad total',
-            'unit_price' => 'Precio c/u',
+            'total_units' => 'Unidades totales',
+            'unit_price' => 'Precio por unidad',
             'date_expiry' => 'Fecha de caducidad',
         ];
     }

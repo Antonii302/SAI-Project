@@ -42,9 +42,9 @@ class ProductCategory extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'code' => 'Code',
-            'description' => 'Description',
-            'is_available' => 'Is Available',
+            'code' => 'Código',
+            'description' => 'Descripción',
+            'is_available' => '¿Está disponible?',
         ];
     }
 

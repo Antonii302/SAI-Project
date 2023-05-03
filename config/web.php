@@ -14,8 +14,14 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
+        'gridview' =>  [
+             'class' => '\kartik\grid\Module'
+        ],
         'warehouse-activity' => [
             'class' => 'app\modules\warehouse_activity\WarehouseActivity',
+        ],
+        'general-processes' => [
+            'class' => 'app\modules\general_processes\GeneralProcesses',
         ],
     ],
     'components' => [

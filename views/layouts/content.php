@@ -9,7 +9,7 @@ use yii\bootstrap4\Breadcrumbs;
     <div class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col bg-white rounded p-3">
+                <div class="col bg-white rounded p-2">
                     <?php
                     echo Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],

@@ -49,11 +49,11 @@ class Product extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'code' => 'Code',
-            'description' => 'Description',
-            'product_category' => 'Product Category',
-            'unit_measurement' => 'Unit Measurement',
+            'id' => 'identificar',
+            'code' => 'Código',
+            'description' => 'Descripción',
+            'product_category' => 'Categoría del producto',
+            'unit_measurement' => 'Unidad de medida',
         ];
     }
 
