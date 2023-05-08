@@ -20,6 +20,9 @@ $config = [
         'warehouse-activity' => [
             'class' => 'app\modules\warehouse_activity\WarehouseActivity',
         ],
+        'general-details' => [
+            'class' => 'app\modules\general_details\GeneralDetails',
+        ],
         'general-processes' => [
             'class' => 'app\modules\general_processes\GeneralProcesses',
         ],

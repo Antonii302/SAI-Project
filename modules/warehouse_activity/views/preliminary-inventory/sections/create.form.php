@@ -53,8 +53,8 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                 'iconChecked'=>'<i class="fas fa-square"></i>',
                             ]
                         ]);
-                        ?>
-                        <label class="cbx-label d-inline float-rigth text-muted ml-3" for="inventory_type">¿Almacenar como INVENTARIO PRELIMINAR?</label> <!-- ./form field -->
+                        ?> <!-- ./form field -->
+                        <label class="cbx-label d-inline float-rigth text-muted ml-3" for="inventory_type">¿Almacenar como INVENTARIO PRELIMINAR?</label>
                     </div> <!-- ./card body -->
                 </div>
                 <!-- ./card -->

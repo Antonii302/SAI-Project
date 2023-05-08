@@ -15,6 +15,8 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+use yii\helpers\ArrayHelper;
+
 use caiobrendo\dynamicgridform\Helper;
 
 class AnnualInventoryBudgetController extends Controller
@@ -73,63 +75,89 @@ class AnnualInventoryBudgetController extends Controller
      */
     public function actionCreate()
     {
-        $annualInventoryBudget = new AnnualInventoryBudget();
-        $models = Helper::createMultiple(ProductBudgetDetail::class);
+        $annual_inventory_budget = new AnnualInventoryBudget();
+        $product_budget_detail = Helper::createMultiple(ProductBudgetDetail::class);
+        
+        $post_method = Yii::$app->request->post();
 
-        $annualInventoryBudget->start_period = Yii::$app->formatter->asDate($annualInventoryBudget->start_period, 'yyyy-MM-dd');
-        $annualInventoryBudget->end_period = Yii::$app->formatter->asDate($annualInventoryBudget->end_period, 'yyyy-MM-dd');
-        $annualInventoryBudget->is_editable = true;
+        if ($annual_inventory_budget->load($post_method) && Model::loadMultiple($product_budget_detail, $post_method)) {
 
-        $transaction = Yii::$app->db->beginTransaction();
-        if ($annualInventoryBudget->load($this->request->post()) && Model::loadMultiple($models, $this->request->post()) && $annualInventoryBudget->save()) {
+            $annual_inventory_budget->start_period = Yii::$app->formatter->asDate($annual_inventory_budget->start_period, 'yyyy-MM-dd');
+            $annual_inventory_budget->end_period = Yii::$app->formatter->asDate($annual_inventory_budget->end_period, 'yyyy-MM-dd');
+
+            $transaction = Yii::$app->db->beginTransaction();
+
             try {
-                foreach ($models as $model) {
-                    $model->annual_inventory_budget = $annualInventoryBudget->id;
-                    
-                    if (!$model->save()) { throw new Exception(); }
-                }
-                $transaction->commit();
+                if ($annual_inventory_budget->save()) {
+                    foreach ($product_budget_detail as $product_detail) {
+                        $product_detail->annual_inventory_budget = $annual_inventory_budget->id;
+                        
+                        if (!$product_detail->save()) { 
+                             var_dump($product_detail->getErrors());
+                            throw new Exception(); }
+                    }
+                    $transaction->commit();
 
-                $this->redirect(['index']);
+                    $this->redirect(['index']);
+                }
             } catch (Exception $exception) {
                 $transaction->rollBack();
-                print_r($annualInventoryBudget->getErrors());
-                print_r($model->getErrors());
             }
         }
+
         return $this->render('create', [
-            'annualInventoryBudget' => $annualInventoryBudget,
-            'models' => $models,
+            'annual_inventory_budget' => $annual_inventory_budget,
+            'product_budget_detail' => $product_budget_detail,
         ]);
     }
 
-    /**
-     * Updates an existing AnnualInventoryBudget model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param int $id ID
-     * @return string|\yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    public function actionUpdate($id)
-    {
-        $model = $this->findModel($id);
+    public function actionUpdate($id) {
+        $annual_inventory_budget = AnnualInventoryBudget::findOne(['id' => $id]);
+        $product_budget_detail = $annual_inventory_budget->productBudgetDetails;
 
-        if ($this->request->isPost && $model->load($this->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->id]);
+        $post_method = Yii::$app->request->post();
+        
+        if ($annual_inventory_budget->load($post_method)) {
+            $annual_inventory_budget->start_period = Yii::$app->formatter->asDate($annual_inventory_budget->start_period, 'yyyy-MM-dd');
+            $annual_inventory_budget->end_period = Yii::$app->formatter->asDate($annual_inventory_budget->end_period, 'yyyy-MM-dd');
+
+            $transaction = Yii::$app->db->beginTransaction();
+            
+            try {
+                if ($annual_inventory_budget->save()) {
+                    $product_budget_detail = Helper::createMultiple(ProductBudgetDetail::class, $product_budget_detail);
+                    Model::loadMultiple($product_budget_detail, $post_method);
+
+                    $olds_records = ArrayHelper::map($annual_inventory_budget->productBudgetDetails, 'id', 'id');
+                    $news_records = ArrayHelper::map($product_budget_detail, 'id', 'id');
+
+                    $delete = array_diff($olds_records, $news_records);
+                    ProductBudgetDetail::deleteAll(['id' => $delete]);
+
+                    foreach ($product_budget_detail as $product_detail) {
+                        $product_detail->annual_inventory_budget = $annual_inventory_budget->id;
+                    }
+
+                    if (!$product_detail->save()) { 
+                        var_dump($product_detail->getErrors());
+                       throw new Exception(); }
+
+                    $transaction->commit();
+
+                    $this->redirect(['index']);
+                }
+            } catch (Exception $exception) {
+                $transaction->rollBack();
+                        var_dump($annual_inventory_budget->getErrors());
+            }
         }
 
         return $this->render('update', [
-            'model' => $model,
+            'annual_inventory_budget' => $annual_inventory_budget,
+            'product_budget_detail' => $product_budget_detail,
         ]);
     }
 
-    /**
-     * Deletes an existing AnnualInventoryBudget model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param int $id ID
-     * @return \yii\web\Response
-     * @throws NotFoundHttpException if the model cannot be found
-     */
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();

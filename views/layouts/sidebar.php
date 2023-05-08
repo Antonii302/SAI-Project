@@ -32,76 +32,55 @@ use yii\helpers\Url;
                         'label' => 'Panel de control',
                         'icon' => 'tachometer-alt',
                         'url' => ['/site/index']
-                    ],
+                    ], // *menu item
                     [
                         
                         'label' => 'Actividad del depósito',
                         'icon' => 'dolly-flatbed',
                         'items' => [
                             [
-                                'label' => 'Administración de inventario',
-                                'iconStyle' => 'far',
+                                'label' => 'Inventario preliminar',
+                                'iconStyle' => 'fas',
                                 'icon' => 'dot-circle',
                                 'url' => ['/warehouse-activity/preliminary-inventory/index']
                             ],
                             [
-                                'label' => 'Transaction de productos',
-                                'iconStyle' => 'far',
+                                'label' => 'Inventario por compra',
+                                'iconStyle' => 'fas',
                                 'icon' => 'dot-circle',
-                                'url' => ['/warehouse-activity/product-transaction/index']
+                                'url' => ['']
                             ],
-                            [
-                                'header' => true,
-                                'label' => 'Detalles del producto',
-                                'icon' => 'dolly-flatbed'
-                            ],
-                            [
-                                'label' => 'Administración de categorías',
-                                'iconStyle' => 'far',
-                                'icon' => 'dot-circle'
-                            ],
-                            [
-                                'label' => 'Administración de unidades de medida',
-                                'iconStyle' => 'far',
-                                'icon' => 'dot-circle'
-                            ]
                         ]
-                    ],
+                    ], // *menu item
                     [
-                        
-                        'label' => 'Procesos generales',
-                        'icon' => 'cogs',
-                        'items' => [
-                            [
-                                'label' => 'Administración de divisiones departamentales',
-                                'iconStyle' => 'far',
-                                'icon' => 'dot-circle'
-                            ],
-                            [
-                                'label' => 'Administración de presupuestos de inventario anual',
-                                'iconStyle' => 'far',
-                                'icon' => 'dot-circle',
-                                'url' => ['/general-processes/annual-inventory-budget/index']
-                            ]
-                        ]
-                    ],
+                        'label' => 'Detalles generales',
+                        'iconStyle' => 'fas',
+                        'icon' => 'barcode',
+                        'url' => ['/general-details/product/index']
+                    ], // *menu item
                     [
-                        'label' => 'Permisos de acceso | Sistema de Inventario',
+                        'label' => 'Presupuesto de inventario anual',
+                        'iconStyle' => 'fas',
+                        'icon' => 'folder',
+                        'url' => ['/general-processes/annual-inventory-budget/index']
+                    ], // *menu item
+                    [
+                        'label' => 'Permisos de acceso',
                         'icon' => 'user-lock',
                         'items' => [
                             [
-                                'label' => 'Administración de usuarios',
-                                'iconStyle' => 'far',
+                                'label' => 'Usuarios del sistema',
+                                'iconStyle' => 'fas',
                                 'icon' => 'dot-circle',
                                 'url' => ['']
                             ]
                         ]
-                    ],
+                    ], // *menu item
                     [
                         'label' => 'Gii',
                         'icon' => 'bug',
                         'url' => ['/gii']
-                    ]
+                    ] // *menu item
                 ]
             ]);
             ?>

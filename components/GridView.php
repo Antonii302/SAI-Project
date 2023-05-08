@@ -52,5 +52,3 @@ class GridView extends \kartik\grid\GridView{
         ]);
     }
 }
-
-?>
