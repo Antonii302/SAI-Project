@@ -1,6 +1,9 @@
 <?php
 
 use yii\helpers\Html;
+use yii\helpers\Url;
+
+use app\components\PagerBootstrap;
 
 use dosamigos\chartjs\ChartJs;
 
@@ -10,11 +13,6 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
 ?>
 
 <div class="container-fluid">
-    <div class="row">
-        <div class="col">
-            <p class="h5 text-truncate text-muted"><?= $this->title; ?></p>
-        </div> <!-- ./col -->
-    </div>
     <!-- Info boxs -->
     <div class="row">
         <div class="col-12 col-sm-6 col-md-3">
@@ -42,7 +40,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'text' => '[placeholder]',
                 'number' => 'placeholder',
                 'iconTheme' => 'dark',
-                'icon' => 'fas fa-folder-open',
+                'icon' => 'fas fa-folder',
                 'theme' => 'white'
             ]); 
             ?>
@@ -59,6 +57,12 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
         </div> <!-- ./col -->
     </div>
     <!-- ./info boxs -->
+
+    <div class="row ml-1 mr-1 mb-3">
+        <div class="col bg-white rounded p-2">
+            <p class="h6 text-muted">Detalles generales</p>
+        </div>
+    </div> <!-- ./section title -->
 
     <!-- Pie charts -->
     <div class="row">
@@ -225,62 +229,11 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
     </div>
     <!-- ./pie charts -->
 
-    <!-- Table -->
-    <div class="row">
-        <div class="col">
-            <!-- Card -->
-            <div class="card">
-                <div class="card-header border-0">
-                    <h5 class="card-title">[placeholder]</h5>
-                </div>
-                <div class="card-body">
-                    <!-- Table -->
-                    <div class="table-responsive">
-                        <table class="table table-borderless">
-                            <thead>
-                                <tr class="tr">
-                                    <th scope="col">[placeholder]</th>
-                                    <th scope="col">[placeholder]</th>
-                                    <th scope="col">[placeholder]</th>
-                                    <th scope="col">[placeholder]</th>
-                                    <th scope="col">[placeholder]</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr class="table-danger">
-                                    <th scope="row">[placeholder]</th>
-                                    <td>[placeholder]</td>
-                                    <td>[placeholder]</td>
-                                    <td>----</td>
-                                    <td>$ ----</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">[placeholder]</th>
-                                    <td>[placeholder]</td>
-                                    <td>[placeholder]</td>
-                                    <td>----</td>
-                                    <td>$ ----</td>
-                                </tr>
-                                <tr class="table-warning">
-                                    <th scope="row">[placeholder]</th>
-                                    <td>[placeholder]</td>
-                                    <td>[placeholder]</td>
-                                    <td>----</td>
-                                    <td>$ ----</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <!-- ./table -->
-                </div>
-                <div class="card-footer text-center">
-                    <?= Html::a('[placeholder]', [''], ['class' => 'card-link']); ?>
-                </div> <!-- ./card footer -->
-            </div>
-            <!-- ./card -->
-        </div> <!-- ./col -->
-    </div>
-    <!-- ./table -->
+    <div class="row ml-1 mr-1 mb-3">
+        <div class="col bg-white rounded p-2">
+            <p class="h6 text-muted">Inventario preliminar</p>
+        </div>
+    </div> <!-- ./section title -->
 
     <!-- Administrative details -->
     <div class="row">
@@ -369,33 +322,96 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <!-- Card -->
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">[placeholder]</h5>
+                    <h5 class="card-title">Últimos registros</h5>
                 </div> <!-- ./card header -->
                 <div class="card-body">
-                    <!-- List group -->
-                    <div class="list-group list-group-flush">
-                        <button type="button" class="d-inline list-group-item list-group-item-action p-1">
-                            <!-- Container fluid -->
-                            <div class="container-fluid">
-                                <div class="row">
-                                    <div class="col-4">
-                                        <p class="h6 text-truncate">[placeholder]</p>
-                                        <p class="text-truncate text-muted small">[placeholder]</p>
-                                    </div> <!-- .col -->
-                                    <div class="col-6">
-                                        <p class="h6 text-truncate">[placeholder]</p>
-                                        <p class="h6 text-truncate">[placeholder]</p>
-                                    </div> <!-- .col -->
-                                    <div class="col-2">
-                                        <p class="text-truncate small text-blue">[placeholder]</p>
-                                    </div> <!-- .col -->
-                                </div>
+                    <?php if (empty($preliminary_inventory)): ?>
+                        <div class="bg-light p-3">
+                            <p class="h6 text-red">No se han encontrado registros</p>
+                        </div>
+                    <?php else: ?>
+                        <?php foreach ($preliminary_inventory as $record): ?>
+                            <!-- List group -->
+                            <div class="list-group list-group-flush">
+                                <a role="button" href="<?= Url::to(['/warehouse-activity/preliminary-inventory/update', 'id' => $record['id']]); ?>" class="d-inline list-group-item list-group-item-action p-2 rounded">
+                                    <div class="d-flex justify-content-between">
+                                        <p class="h6 text-truncate text-blue"><?= $record['description']; ?></p>
+                                        <p class="text-truncate text-muted small"><?= $record['total_units']; ?> <?= strtolower($record['unit']); ?></p>
+                                    </div>    
+                                    <div class="d-flex justify-content-between">
+                                        <p class="h6 text-truncate"><?= $record['product_category']; ?></p>
+                                        <p class="text-truncate small text-blue"><span class="text-bold">$ </span><?= $record['unit_price']; ?> c/u</p>
+                                    </div>
+                                </a> <!-- .list group item -->
                             </div>
-                            <!-- ./container fluid -->
-                        </button> <!-- .list group item -->
-                    </div>
-                    <!-- ./list group -->
+                            <!-- ./list group -->
+                        <?php endforeach; ?>
+                    <?php endif; ?>
                 </div> <!-- ./card body -->
+                <?php if(!empty($preliminary_inventory)): ?>
+                <div class="card-footer text-center">
+                    <?= Html::a('Ver todos', ['/warehouse-activity/preliminary-inventory'], ['class' => 'card-link']); ?>
+                </div> <!-- ./card footer -->
+                <?php endif; ?>
+            </div>
+            <!-- ./card -->
+        </div> <!-- ./col -->
+    </div>
+
+    <div class="row ml-1 mr-1 mb-3">
+        <div class="col-12 bg-white rounded p-2">
+            <p class="h6 text-muted">Inventario por compra</p>
+        </div>
+    </div> <!-- ./section title -->
+
+    <!-- Table -->
+    <div class="row">
+        <div class="col">
+            <!-- Card -->
+            <div class="card">
+                <div class="card-header border-0">
+                    <h5 class="card-title">[placeholder]</h5>
+                </div>
+                <div class="card-body">
+                    <!-- Table -->
+                    <div class="table-responsive">
+                        <table class="table table-borderless">
+                            <thead>
+                                <tr class="tr">
+                                    <th scope="col">[placeholder]</th>
+                                    <th scope="col">[placeholder]</th>
+                                    <th scope="col">[placeholder]</th>
+                                    <th scope="col">[placeholder]</th>
+                                    <th scope="col">[placeholder]</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-danger">
+                                    <th scope="row">[placeholder]</th>
+                                    <td>[placeholder]</td>
+                                    <td>[placeholder]</td>
+                                    <td>----</td>
+                                    <td>$ ----</td>
+                                </tr>
+                                <tr>
+                                    <th scope="row">[placeholder]</th>
+                                    <td>[placeholder]</td>
+                                    <td>[placeholder]</td>
+                                    <td>----</td>
+                                    <td>$ ----</td>
+                                </tr>
+                                <tr class="table-warning">
+                                    <th scope="row">[placeholder]</th>
+                                    <td>[placeholder]</td>
+                                    <td>[placeholder]</td>
+                                    <td>----</td>
+                                    <td>$ ----</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <!-- ./table -->
+                </div>
                 <div class="card-footer text-center">
                     <?= Html::a('[placeholder]', [''], ['class' => 'card-link']); ?>
                 </div> <!-- ./card footer -->
@@ -403,6 +419,13 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
             <!-- ./card -->
         </div> <!-- ./col -->
     </div>
+    <!-- ./table -->
+
+    <div class="row ml-1 mr-1 mb-3">
+        <div class="col bg-white rounded p-2">
+            <p class="h6 text-muted">Productos retirados</p>
+        </div>
+    </div> <!-- ./section title -->
 
     <div class="row">
         <div class="col-12 col-md-7">

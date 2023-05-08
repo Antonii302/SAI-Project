@@ -14,7 +14,6 @@ class AppAsset extends AssetBundle
         'css/image.css'
     ];
     public $js = [
-        'javascript/dynamic-form.js'
     ];
     public $depends = [
         'yii\web\YiiAsset',

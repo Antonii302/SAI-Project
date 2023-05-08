@@ -57,7 +57,9 @@ class PreliminaryInventoryController extends Controller
     {
         $models = Helper::createMultiple(PreliminaryInventory::class);
 
-        if (Model::loadMultiple($models, $this->request->post())) {
+        $post_method = Yii::$app->request->post();
+
+        if (Model::loadMultiple($models, $post_method)) {
             $transaction = Yii::$app->db->beginTransaction();
             try {
                 foreach ($models as $model) {

@@ -1,8 +1,8 @@
 <?php
 
-use app\models\ProductBudgetDetail;
+use app\models\ProductCategory;
+use app\models\UnitMeasurement;
 use app\models\Product;
-use app\models\DepartmentalDivision;
 
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
@@ -19,24 +19,26 @@ use caiobrendo\dynamicgridform\NormalColumn;
 
 ?>
 
-<div class="annual-inventory-budget-form">
+<div class="product-form">
+    
     <!-- Active form -->
     <?php 
     $form = ActiveForm::begin([
-        'id' => 'annual-inventory-budget-form',
+        'id' => 'product-form',
         'enableClientValidation' => false,
         'type' => ActiveForm::TYPE_VERTICAL,
         'options' => [
             'autocomplete' => 'off'
         ],
         'fieldConfig' => [
-            'template' => '{input}'
+            'template' => '<div class="control-label d-inline text-muted">{label}</div> {input}'
         ]
     ]);
     ?>
     
     <?= Html::hiddenInput('id', '', ['id' => 'id']) ?>
-    
+
+    <!-- Container fluid -->
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -44,45 +46,20 @@ use caiobrendo\dynamicgridform\NormalColumn;
                 <div class="card rounded-0">
                     <div class="card-body p-2">
                         <div class="container-fluid">
-                            <div class="row">
-                                <div class="col-12 col-sm-6">
-                                    <?= Html::activeLabel($annual_inventory_budget, 'start_period', ['class' => 'control-label d-sm-none text-muted']); ?>
-                                    <?= $form->field($annual_inventory_budget, 'start_period')->widget(DatePicker::class, [
-                                        'id' => 'start_period',
-                                        'name' => 'start_period',
-                                        'layout' => '{picker} {input} {remove}',
-                                        'pickerIcon' => '<i class="fas fa-calendar-week"></i>',
-                                        'removeIcon' => '<i class="fas fa-times-circle"></i>',
-                                        'options' => ['placeholder' => '01-01-2023'],
-                                        'pluginOptions' => [
-                                            'format' => 'dd-mm-yyyy',
-                                            'autoclose' => true,
-                                            'orientation' => 'bottom',
-                                        ],
-                                        'size' => 'sm'
-                                    ]);?> <!-- ./field -->
-                                </div> <!-- ./col -->     
-                                <div class="col-12 col-sm-6">
-                                    <?= Html::activeLabel($annual_inventory_budget, 'end_period', ['class' => 'control-label d-sm-none text-muted']); ?>
-                                    <?= $form->field($annual_inventory_budget, 'end_period')->widget(DatePicker::class, [
-                                        'id' => 'end_period',
-                                        'name' => 'end_period',
-                                        'layout' => '{picker} {input} {remove}',
-                                        'pickerIcon' => '<i class="fas fa-calendar-week"></i>',
-                                        'removeIcon' => '<i class="fas fa-times-circle"></i>',
-                                        'options' => ['placeholder' => '01-01-2023'],
-                                        'pluginOptions' => [
-                                            'format' => 'dd-mm-yyyy',
-                                            'autoclose' => true,
-                                            'orientation' => 'bottom',
-                                        ],
-                                        'size' => 'sm'
-                                    ]);?> <!-- ./field -->
-                                </div> <!-- ./col -->        
+                            <div class="row" style="gap: 8px;">
+                                <div class="col-12">
+                                    <?= 
+                                    $form->field($product_category, 'description')->textInput([
+                                        'placeholder' => 'Materiales, productos y art. varios', 
+                                        'maxlength' => true, 
+                                        'class' => 'form-control-sm'
+                                    ]);
+                                    ?> <!-- ./form field -->
+                                </div> <!-- ./col -->
                                 <div class="col-12">
                                     <?php
-                                    echo $form->field($annual_inventory_budget, 'is_editable')->label(false)->widget(CheckboxX::class, [
-                                        'name' => 'is_editable',
+                                    echo $form->field($product_category, 'is_available')->label(false)->widget(CheckboxX::class, [
+                                        'name' => 'is_available',
                                         'options' => [
                                             'id' => 'is_available',
                                             'class' => 'form-check-input', 
@@ -93,7 +70,7 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                             'data-parsley-multiple' => null,
                                         ],
                                         'labelSettings' => [
-                                            'label' => '¿Habilitar edición?',
+                                            'label' => '¿Deshabilitar categoría?',
                                             'options' => [
                                                 'class' => 'control-label text-muted'
                                             ],
@@ -104,13 +81,13 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                         ],
                                     ]);
                                     ?> <!-- ./form field -->
-                                </div> <!-- ./col -->   
+                                </div> <!-- ./col -->
                             </div>
                         </div>
-                    </div> <!-- ./card body -->
+                    </div>
                 </div>
                 <!-- ./card -->
-            </div> <!-- ./col -->
+            </div>
         </div>
         <div class="row">
             <div class="col-md-6">
@@ -119,47 +96,39 @@ use caiobrendo\dynamicgridform\NormalColumn;
                     <div class="card-body p-2">
                         <div class="container-fluid">
                             <div class="form-row" class="row">
-                                <div class="col-12 col-sm-5">
-                                    <label for="product" class="control-label d-sm-none text-muted">Producto</label>
-                                    <?= Select2::widget([
-                                        'id' => 'product',
-                                        'name' => 'product',
-                                        'data' => ArrayHelper::map(Product::find()->orderBy('description')->all(), 'id', 'description'),
-                                        'size' => Select2::SMALL,
-                                        'options' => ['placeholder' => 'Selecciona un producto'],
-                                        'pluginOptions' => [
-                                            'allowClear' => true
-                                        ]
-                                    ]); ?> <!-- ./field -->
-                                </div> <!-- ./col -->
-                                <div class="col-12 col-sm-4">
-                                    <label for="departmental_division" class="control-label d-sm-none text-muted">División departamental</label>
-                                    <?= Select2::widget([
-                                        'id' => 'departmental_division',
-                                        'name' => 'departmental_division',
-                                        'data' => ArrayHelper::map(DepartmentalDivision::find()->orderBy('name')->all(), 'code', 'name'),
-                                        'size' => Select2::SMALL,
-                                        'options' => ['placeholder' => 'Selecciona una división departamental'],
-                                        'pluginOptions' => [
-                                            'allowClear' => true
-                                        ]
-                                    ]); ?> <!-- ./field -->
-                                </div> <!-- ./col -->
-                                <div class="col-12 col-sm-2">
-                                <label for="requested_units" class="control-label d-sm-none text-muted">Unidades solicitadas</label>
+                                <div class="col-2">
+                                    <label for="code" class="control-label d-sm-none text-muted">Descripción</label>
                                     <?= 
-                                    NumberControl::widget([
-                                        'id' => 'requested_units',
-                                        'name' => 'requested_units',
-                                        'maskedInputOptions' => [
-                                            'allowMinus' => false
-                                        ],
-                                        'displayOptions' => [
-                                            'class' => 'form-control form-control-sm kv-monospace',
-                                            'placeholder' => '9,999,999,999'
+                                    Html::textInput('type', null, [
+                                        'id' => 'code',
+                                        'name' => 'code',
+                                        'class' => 'form-control form-control-sm',
+                                        'placeholder' => '3359001'
+                                    ]); ?> <!-- ./field -->
+                                </div> <!-- ./col -->
+                                <div class="col">
+                                    <label for="product" class="control-label d-sm-none text-muted">Descripción</label>
+                                    <?= 
+                                    Html::textInput('type', null, [
+                                        'id' => 'description',
+                                        'name' => 'description',
+                                        'class' => 'form-control form-control-sm',
+                                        'placeholder' => 'Libros en blanco'
+                                    ]); ?> <!-- ./field -->
+                                </div> <!-- ./col -->
+                                <div class="col-12 col-sm-5">
+                                    <label for="unit_measurement" class="control-label d-sm-none text-muted">Unidad de medida</label>
+                                    <?= Select2::widget([
+                                        'id' => 'unit_measurement',
+                                        'name' => 'unit_measurement',
+                                        'data' => ArrayHelper::map(UnitMeasurement::find()->orderBy('unit')->all(), 'id', 'unit'),
+                                        'size' => Select2::SMALL,
+                                        'options' => ['placeholder' => 'Selecciona una unidad de medida'],
+                                        'pluginOptions' => [
+                                            'allowClear' => true
                                         ]
                                     ]); ?> <!-- ./field -->
-                                </div> <!-- ./col -->                        
+                                </div> <!-- ./col -->                            
                                 <div class="col-sm-1 mt-2 mt-sm-0">
                                     <?= Html::button('<i class="fas fa-plus"></i> <span class="d-sm-none">Añadir registro</span>', ['type' => 'button', 'title' => 'Añadir registro', 'id' => 'add-record', 'class' => 'btn btn-sm mb-2 w-100 bg-blue']); ?>
                                     <?= Html::resetButton('<i class="fab fa-digital-ocean"></i> <span class="d-sm-none">Limpiar campos</span>', ['title' => 'Limpiar formulario', 'id' => 'clean-fields', 'class' => 'btn btn-sm w-100 bg-red']); ?>
@@ -177,8 +146,8 @@ use caiobrendo\dynamicgridform\NormalColumn;
                         <?=
                         DynamicGridForm::widget([
                             'widgetContainer' => 'dgf-container',
-                            'multipleModels' => $product_budget_detail,
-                            'modelClass' => ProductBudgetDetail::class,
+                            'multipleModels' => $products,
+                            'modelClass' => Product::class,
                             'columns' => [
                                 [
                                     'class' => NormalColumn::class,
@@ -190,31 +159,31 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                     'headerOptions' => [
                                         'class' => 'd-none'
                                     ]
+                                ], // *serial column
+                                [
+                                    'id' => 'code',
+                                    'attribute' => 'code',
+                                    'headerOptions' => [
+                                        'class' => 'small text-muted text-bold',
+                                        'width' => 20
+                                    ]
                                 ],
                                 [
-                                    'id' => 'product',
-                                    'attribute' => 'product',
+                                    'id' => 'description',
+                                    'attribute' => 'description',
+                                    'headerOptions' => [
+                                        'class' => 'small text-muted text-bold',
+                                        'width' => 40
+                                    ]
+                                ], // *data column
+                                [
+                                    'id' => 'unit_measurement',
+                                    'attribute' => 'unit_measurement',
                                     'headerOptions' => [
                                         'class' => 'small text-muted text-bold',
                                         'width' => 30
                                     ]
-                                ],
-                                [
-                                    'id' => 'departmental_division',
-                                    'attribute' => 'departmental_division',
-                                    'headerOptions' => [
-                                        'class' => 'small text-muted text-bold',
-                                        'width' => 20
-                                    ]
-                                ],
-                                [
-                                    'id' => 'requested_units',
-                                    'attribute' => 'requested_units',
-                                    'headerOptions' => [
-                                        'class' => 'small text-muted text-bold',
-                                        'width' => 20
-                                    ]
-                                ],
+                                ], // *data column
                                 [
                                     'class' => ActionColumn::class,
                                     'template' => '{delete}',
@@ -227,7 +196,7 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                     'headerOptions' => [
                                         'width' => 10
                                     ]
-                                ]
+                                ] // *data column
                             ],
                             'insertButton' => 'add-record',
                             'deleteRowClass' => 'remove-record'
@@ -250,6 +219,8 @@ use caiobrendo\dynamicgridform\NormalColumn;
             </div>
         </div>
     </div>
+    <!-- ./container fluid -->
+
     <?php ActiveForm::end(); ?>
     <!-- ./active form -->
 </div>

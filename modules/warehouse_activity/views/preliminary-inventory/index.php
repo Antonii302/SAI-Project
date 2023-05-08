@@ -3,7 +3,6 @@
 use app\models\PreliminaryInventory;
 use app\models\Product;
 
-
 use yii\helpers\Html;
 use yii\helpers\ArrayHelper;
 
@@ -26,35 +25,34 @@ $this->params['breadcrumbs'][] = $this->title;
                     'dataProvider' => $dataProvider,
                     'filterModel' => $searchModel,
                     'columns' => [
-                        
                         [
                             'class' => 'kartik\grid\SerialColumn',
                             'header' => 'n°',
-                            'width' => '10%',
-                            'options' => ['style' => 'max-width: 10%;']
-                        ],
+                            'options' => ['style' => 'max-width: 10%;'],
+                            'width' => '10%'
+                        ], // *serial column
                         [
                             'class' => 'kartik\grid\DataColumn',
                             'attribute' => 'product',
                             'value' => function ($model, $key, $index, $widget) {
                                 return $model->product0->description;
                             },
+                            'options' => ['style' => 'max-width: 35%;'],
                             'width' => '35%',
                             'filterType' => GridView::FILTER_SELECT2,
-                            'filter' => ArrayHelper::map(Product::find()->orderBy('description')->all(), 'id', 'description'),
                             'filterWidgetOptions' => [
                                 'options' => ['placeholder' => 'Buscar...'],
                                 'pluginOptions' => [
                                     'allowClear' => true
                                 ]
                             ],
-                            'options' => ['style' => 'max-width: 35%;']
-                        ],
+                            'filter' => ArrayHelper::map(Product::find()->orderBy('description')->all(), 'id', 'description')
+                        ], // *data column
                         [
                             'class' => 'kartik\grid\DataColumn',
                             'attribute' => 'total_units',
-                            'vAlign' => 'middle',
                             'width' => '15%',
+                            'vAlign' => 'middle',
                             'options' => ['style' => 'max-width: 15%;'],
                             'filterType' => GridView::FILTER_TYPEAHEAD,
                             'filterWidgetOptions' => [
@@ -64,27 +62,27 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'dataset' => [
                                     [
+                                        'limit' => 10,
                                         'local' => array_values(ArrayHelper::map(
                                             PreliminaryInventory::find()
                                             ->orderBy('total_units')
                                             ->asArray()
                                             ->all(), 
                                             'total_units', 'total_units')
-                                        ),
-                                        'limit' => 10
+                                        )
                                     ]
                                 ],
-                                'scrollable' => true,
                                 'pluginOptions' => [
                                     'highlight' => true
                                 ],
+                                'scrollable' => true
                             ]
-                        ],
+                        ], // *data column
                         [
                             'class' => 'kartik\grid\DataColumn',
                             'attribute' => 'unit_price',
-                            'vAlign' => 'middle',
                             'width' => '10%',
+                            'vAlign' => 'middle',
                             'options' => ['style' => 'max-width: 10%;'],
                             'filterType' => GridView::FILTER_TYPEAHEAD,
                             'filterWidgetOptions' => [
@@ -94,27 +92,28 @@ $this->params['breadcrumbs'][] = $this->title;
                                 ],
                                 'dataset' => [
                                     [
+                                        'limit' => 10,
                                         'local' => array_values(ArrayHelper::map(
                                             PreliminaryInventory::find()
                                             ->orderBy('unit_price')
                                             ->asArray()
                                             ->all(), 
                                             'unit_price', 'unit_price')
-                                        ),
-                                        'limit' => 10
+                                        )
                                     ]
                                 ],
-                                'scrollable' => true,
                                 'pluginOptions' => [
                                     'highlight' => true
                                 ],
+                                'scrollable' => true
                             ]
-                        ],
+                        ], // *data column
                         [
                             'attribute' => 'date_expiry',
                             'value' => function ($model) {
                                 return Yii::$app->formatter->asDate($model->date_expiry, 'yyyy-MM-dd');
                             },
+                            'options' => ['placeholder' => 'Buscar...'],
                             'filterType' => GridView::FILTER_DATE,
                             'filterWidgetOptions' => [
                                 'layout' => '{picker} {input} {remove}',
@@ -123,10 +122,9 @@ $this->params['breadcrumbs'][] = $this->title;
                                 'pluginOptions' => [
                                     'format' => 'yyyy-mm-dd',
                                     'autoclose' => true,
-                                ],
-                            'options' => ['placeholder' => 'Buscar...'],
+                                ]
                             ]
-                        ],
+                        ], // *data column
                         [
                             'class' => 'kartik\grid\ActionColumn',
                             'width' => '10%',
@@ -145,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ]);
                                 }
                             ]
-                        ]
+                        ] // *action column
                     ]
                 ]);
                 ?>

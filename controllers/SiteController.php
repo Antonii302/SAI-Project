@@ -3,12 +3,16 @@
 namespace app\controllers;
 
 use Yii;
+
+use app\models\LoginForm;
+use app\models\ContactForm;
+
 use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 use yii\filters\VerbFilter;
-use app\models\LoginForm;
-use app\models\ContactForm;
+
+use app\models\PreliminaryInventory;
 
 class SiteController extends Controller
 {
@@ -48,11 +52,6 @@ class SiteController extends Controller
         ];
     }
 
-    public function actionIndex()
-    {
-        return $this->render('index');
-    }
-
     public function actionLogin()
     {
         if (!Yii::$app->user->isGuest) {
@@ -70,11 +69,24 @@ class SiteController extends Controller
         ]);
     }
 
-    public function actionLogout()
+    public function actionIndex()
     {
-        Yii::$app->user->logout();
+        $preliminary_inventory = PreliminaryInventory::find()
+        ->select([
+            'preliminary_inventory.id as id', 
+            'product_category.description as product_category', 
+            'product.description as description', 
+            'total_units', 
+            'unit_measurement.unit as unit', 
+            'unit_price'
+            ])
+        ->leftjoin('product', 'preliminary_inventory.product = product.id')
+        ->leftjoin('product_category', 'product.product_category = product_category.code')
+        ->leftjoin('unit_measurement', 'product.unit_measurement = unit_measurement.id');
 
-        return $this->goHome();
+        return $this->render('index', [
+            'preliminary_inventory' => $preliminary_inventory->limit(15)->asArray()->all()
+        ]);
     }
 
     public function actionContact()
@@ -93,5 +105,12 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+
+    public function actionLogout()
+    {
+        Yii::$app->user->logout();
+
+        return $this->goHome();
     }
 }

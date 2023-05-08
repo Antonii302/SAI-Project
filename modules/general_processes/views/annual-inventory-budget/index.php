@@ -107,7 +107,7 @@ $this->params['breadcrumbs'][] = $this->title;
                             ]
                         ]
                     ]
-                ]);
+                ]); 
                 ?>
             </div> <!-- ./col -->
         </div>
