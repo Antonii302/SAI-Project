@@ -40,7 +40,7 @@ $this->params['breadcrumbs'] = [['label' => $this->title]];
                 'text' => '[placeholder]',
                 'number' => 'placeholder',
                 'iconTheme' => 'dark',
-                'icon' => 'fas fa-folder',
+                'icon' => 'fas fa-archive',
                 'theme' => 'white'
             ]); 
             ?>

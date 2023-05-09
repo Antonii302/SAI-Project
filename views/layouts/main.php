@@ -3,6 +3,7 @@
 use app\assets\AppAsset;
 
 use yii\helpers\Html;
+use yii\helpers\url;
 
 \hail812\adminlte3\assets\FontAwesomeAsset::register($this);
 \hail812\adminlte3\assets\AdminLteAsset::register($this);
@@ -27,6 +28,8 @@ AppAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
     <?php $this->registerCsrfMetaTags() ?>
+
+    <?= $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/png', 'href' => Url::to(['@web/images/about-website/website-icon.png'])]); ?>
 
     <title><?= Html::encode($this->title) ?></title>
 
