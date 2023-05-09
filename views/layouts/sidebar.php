@@ -39,30 +39,27 @@ use yii\helpers\Url;
                         'icon' => 'dolly-flatbed',
                         'items' => [
                             [
-                                'label' => 'Inventario preliminar',
-                                'iconStyle' => 'fas',
-                                'icon' => 'dot-circle',
-                                'url' => ['/warehouse-activity/preliminary-inventory/index']
-                            ],
-                            [
-                                'label' => 'Inventario por compra',
+                                'label' => 'Inventario',
                                 'iconStyle' => 'fas',
                                 'icon' => 'dot-circle',
                                 'url' => ['']
                             ],
+                            [
+                                'header' => true,
+                                'label' => 'Otros'
+                            ],
+                            [
+                                'label' => 'Especificaciones generales',
+                                'iconStyle' => 'fas',
+                                'icon' => 'dot-circle',
+                                'url' => ['/general-details/product/index']
+                            ]
                         ]
-                    ], // *menu item
-                    [
-                        'label' => 'Detalles generales',
-                        'iconStyle' => 'fas',
-                        'icon' => 'barcode',
-                        'url' => ['/general-details/product/index']
                     ], // *menu item
                     [
                         'label' => 'Presupuesto de inventario anual',
                         'iconStyle' => 'fas',
-                        'icon' => 'folder',
-                        'url' => ['/general-processes/annual-inventory-budget/index']
+                        'icon' => 'archive'
                     ], // *menu item
                     [
                         'label' => 'Permisos de acceso',
