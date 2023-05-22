@@ -55,13 +55,13 @@ use yii\helpers\Html;
             </a>
             <!-- Dropdown menu -->
             <div class="dropdown-menu fade dropdown-menu-lg dropdown-menu-right">
-                <div class="dropdown-header">
+                <div class="dropdown-header p-2">
                     <!-- Card -->
                     <div class="card elevation-1">
                         <div class="card-body p-1">
                             <!-- List group -->
                             <div class="list-group list-group-flush">
-                                <a class="list-group-item list-group-item-action rounded border-0 p-2">
+                                <a href="" class="list-group-item list-group-item-action rounded border-0 p-2">
                                     <div class="media">
                                         <img src="<?= Yii::$app->request->hostInfo . '/images/user-account/perfil-usuario.jpg'; ?>" class="profile-image img-circle mr-3" alt="[placeholder]">
                                         <div class="media-body">
@@ -80,17 +80,17 @@ use yii\helpers\Html;
                     </div>
                     <!-- ./card -->
                 </div>
-                <div class="dropdown-footer text-left">
+                <div class="dropdown-footer text-left p-0">
                     <!-- List group-->
                     <div class="list-group list-group-flush">
-                        <button type="button" class="list-group-item list-group-item-action">
+                        <a href="" class="list-group-item list-group-item-action">
                             <i class="fas fa-server"></i>
                             Copias de seguridad
-                        </button> <!-- ./lis group item -->
-                        <button type="button" class="list-group-item list-group-item-action">
+                        </a> <!-- ./lis group item -->
+                        <a href="" class="list-group-item list-group-item-action bg-dark">
                             <i class="fas fa-sign-out-alt"></i>
                             Cerrar sesión
-                        </button> <!-- ./lis group item -->
+                        </a> <!-- ./lis group item -->
                     </div>
                     <!-- ./list group-->
                 </div> <!-- ./dropdown footer -->
