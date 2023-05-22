@@ -13,7 +13,7 @@ use yii\helpers\Url;
     
     <!-- Sidebar -->
     <div class="sidebar">
-        <!-- Sidebar user panel (optional) -->
+        <!-- Sidebar user panel -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
             <div class="image">
                 <img src="<?= Yii::$app->request->hostInfo . '/images/user-account/perfil-usuario.jpg'; ?>" class="img-circle elevation-1" style="width: 38px; height: 38px; object-fit: cover; object-position: center;" alt="Perfil de usuario">
@@ -30,54 +30,39 @@ use yii\helpers\Url;
                 'items' => [
                     [
                         'label' => 'Panel de control',
+                        'iconStyle' => 'fas',
                         'icon' => 'tachometer-alt',
                         'url' => ['/site/index']
                     ], // *menu item
+                    ['header' => true, 'label' => 'Almacén'],
                     [
-                        
-                        'label' => 'Actividad del depósito',
+                        'label' => 'Detalle general',
+                        'iconStyle' => 'fas',
+                        'icon' => 'th',
+                        'items' => [
+                            ['label' => 'Inventario', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
+                            ['label' => 'Estimación de costes', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
+                            ['label' => 'Detalles de catálogo', 'iconStyle' => 'far', 'icon' => 'dot-circle']
+                        ]
+                    ], // *menu item
+                    [
+                        'label' => 'Actividad principal',
+                        'iconStyle' => 'fas',
                         'icon' => 'dolly-flatbed',
                         'items' => [
-                            [
-                                'label' => 'Inventario',
-                                'iconStyle' => 'fas',
-                                'icon' => 'dot-circle',
-                                'url' => ['']
-                            ],
-                            [
-                                'header' => true,
-                                'label' => 'Otros'
-                            ],
-                            [
-                                'label' => 'Especificaciones generales',
-                                'iconStyle' => 'fas',
-                                'icon' => 'dot-circle',
-                                'url' => ['/general-details/product/index']
-                            ]
+                            ['label' => '', 'iconStyle' => 'far', 'icon' => 'dot-circle']
                         ]
                     ], // *menu item
-                    [
-                        'label' => 'Presupuesto de inventario anual',
-                        'iconStyle' => 'fas',
-                        'icon' => 'archive'
-                    ], // *menu item
+                    ['header' => true, 'label' => 'Sistema'], // *menu item
                     [
                         'label' => 'Permisos de acceso',
+                        'iconStyle' => 'fas',
                         'icon' => 'user-lock',
                         'items' => [
-                            [
-                                'label' => 'Usuarios del sistema',
-                                'iconStyle' => 'fas',
-                                'icon' => 'dot-circle',
-                                'url' => ['']
-                            ]
+                            ['label' => 'Usuarios', 'iconStyle' => 'far', 'icon' => 'dot-circle']
                         ]
                     ], // *menu item
-                    [
-                        'label' => 'Gii',
-                        'icon' => 'bug',
-                        'url' => ['/gii']
-                    ] // *menu item
+                    ['label' => 'Gii', 'icon' => 'bug', 'target' => '_blank','url' => ['/gii']] // *menu item
                 ]
             ]);
             ?>

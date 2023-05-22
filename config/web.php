@@ -14,6 +14,19 @@ $config = [
         '@npm'   => '@vendor/npm-asset',
     ],
     'modules' => [
+        'backup' => [
+            'class' => 'floor12\backup\Module',
+            'backupFolder' => '@app/backups',
+            'administratorRoleName' => '@',
+            'configs' => [
+                'mysql_db' => [
+                    'type' => 'Database',
+                    'title' => 'Mysql database',
+                    'connection' => 'db',
+                    'limit' => 0
+                ]
+            ]
+        ],
         'gridview' =>  [
              'class' => '\kartik\grid\Module'
         ],
