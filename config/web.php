@@ -4,7 +4,7 @@ $params = require __DIR__ . '/params.php';
 $db = require __DIR__ . '/db.php';
 
 $config = [
-    'id' => 'S.A.I-Project',
+    'id' => 'S.A.I_Project',
     'timeZone' => 'America/El_Salvador',
     'language' => 'es',
     'basePath' => dirname(__DIR__),
@@ -30,8 +30,8 @@ $config = [
         'gridview' =>  [
              'class' => '\kartik\grid\Module'
         ],
-        'warehouse-activity' => [
-            'class' => 'app\modules\warehouse_activity\WarehouseActivity',
+        'warehouse' => [
+            'class' => 'app\modules\warehouse\Warehouse',
         ],
         'general-details' => [
             'class' => 'app\modules\general_details\GeneralDetails',

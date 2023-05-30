@@ -1,6 +1,6 @@
 <?php
 
-namespace app\modules\general_details\models;
+namespace app\modules\warehouse\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -17,7 +17,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'product_category'], 'integer'],
+            [['id', 'id_product_category'], 'integer'],
             [['description'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'product_category' => $this->product_category,
+            'id_product_category' => $this->id_product_category,
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description]);

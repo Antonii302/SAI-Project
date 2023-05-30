@@ -80,17 +80,19 @@ use yii\helpers\Html;
                     </div>
                     <!-- ./card -->
                 </div>
-                <div class="dropdown-footer text-left p-0">
+                <div class="dropdown-footer text-left rounded p-2">
                     <!-- List group-->
                     <div class="list-group list-group-flush">
-                        <a href="" class="list-group-item list-group-item-action">
-                            <i class="fas fa-server"></i>
-                            Copias de seguridad
-                        </a> <!-- ./lis group item -->
-                        <a href="" class="list-group-item list-group-item-action bg-dark">
-                            <i class="fas fa-sign-out-alt"></i>
-                            Cerrar sesión
-                        </a> <!-- ./lis group item -->
+                        <?= 
+                        Html::a('<i class="fas fa-server"></i> Copias de seguridad', [''], [
+                            'class' => 'list-group-item list-group-item-action border-0 mb-1'
+                        ]); 
+                        ?> <!-- ./list group item -->
+                        <?= 
+                        Html::a('<i class="fas fa-sign-out-alt"></i> Cerrar sesión', [''], [
+                            'class' => 'list-group-item list-group-item-action bg-dark'
+                        ]); 
+                        ?> <!-- ./list group item -->
                     </div>
                     <!-- ./list group-->
                 </div> <!-- ./dropdown footer -->
