@@ -121,7 +121,7 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                     <?= Select2::widget([
                                         'id' => 'unit_measurement',
                                         'name' => 'unit_measurement',
-                                        'data' => ArrayHelper::map(UnitMeasurement::find()->orderBy('unit')->all(), 'id', 'unit'),
+                                        'data' => ArrayHelper::map(UnitMeasurement::find()->orderBy('description')->all(), 'id', 'unit'),
                                         'size' => Select2::SMALL,
                                         'options' => ['placeholder' => 'Selecciona una unidad de medida'],
                                         'pluginOptions' => [
@@ -130,7 +130,7 @@ use caiobrendo\dynamicgridform\NormalColumn;
                                     ]); ?> <!-- ./field -->
                                 </div> <!-- ./col -->                            
                                 <div class="col-sm-1 mt-2 mt-sm-0">
-                                    <?= Html::button('<i class="fas fa-plus"></i> <span class="d-sm-none">Añadir registro</span>', ['type' => 'button', 'title' => 'Añadir registro', 'id' => 'add-record', 'class' => 'btn btn-sm mb-2 w-100 bg-blue']); ?>
+                                    <?= Html::button('<i class="fas fa-plus"></i> <span class="d-sm-none">Añadir registro</span>', ['type' => 'button', 'title' => 'Añadir registro', 'id' => 'add-record', 'class' => 'btn btn-sm mb-2 w-100 bg-green']); ?>
                                     <?= Html::resetButton('<i class="fab fa-digital-ocean"></i> <span class="d-sm-none">Limpiar campos</span>', ['title' => 'Limpiar formulario', 'id' => 'clean-fields', 'class' => 'btn btn-sm w-100 bg-red']); ?>
                                 </div> <!-- ./col -->
                             </div>

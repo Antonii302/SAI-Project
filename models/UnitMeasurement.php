@@ -8,9 +8,7 @@ use Yii;
  * This is the model class for table "unit_measurement".
  *
  * @property int $id
- * @property string $unit
- *
- * @property Product[] $products
+ * @property int $description
  */
 class UnitMeasurement extends \yii\db\ActiveRecord
 {
@@ -28,9 +26,9 @@ class UnitMeasurement extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['unit'], 'required'],
-            [['unit'], 'string', 'max' => 22],
-            [['unit'], 'unique'],
+            [['description'], 'required'],
+            [['description'], 'integer'],
+            [['description'], 'unique'],
         ];
     }
 
@@ -41,17 +39,7 @@ class UnitMeasurement extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'unit' => 'Unit',
+            'description' => 'Description',
         ];
-    }
-
-    /**
-     * Gets query for [[Products]].
-     *
-     * @return \yii\db\ActiveQuery
-     */
-    public function getProducts()
-    {
-        return $this->hasMany(Product::class, ['unit_measurement' => 'id']);
     }
 }

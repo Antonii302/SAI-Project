@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <div class="general-detail-home">
-    <!-- ./container fluid -->
+    <!-- Container fluid -->
     <div class="container-fluid">
         <div class="row">
             <div class="col">
@@ -59,13 +59,13 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                     'scrollable' => true
                                 ],
-                            ], // *data column
+                            ], // .data column
                             [
                                 'class' => 'kartik\grid\SerialColumn',
                                 'header' => 'n°',
                                 'options' => ['style' => 'max-width: 10%;'],
                                 'width' => '10%'
-                            ], // *serial column
+                            ], // .serial column
                             [
                                 'class' => 'kartik\grid\DataColumn',
                                 'attribute' => 'description',
@@ -94,7 +94,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                     'scrollable' => true
                                 ]
-                            ], // *data column
+                            ], // .data column
                             [
                                 'class' => 'kartik\grid\BooleanColumn',
                                 'attribute' => 'productCategory.is_available',
@@ -143,7 +143,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                     ],
                                     'scrollable' => true
                                 ]
-                            ], // *data column
+                            ], // .data column
                             [
                                 'class' => 'kartik\grid\ActionColumn',
                                 'width' => '10%',
@@ -167,7 +167,7 @@ $this->params['breadcrumbs'][] = $this->title;
                                         ]);
                                     }
                                 ]
-                            ] // *action column
+                            ] // .action column
                         ]
                     ]);
                     ?>

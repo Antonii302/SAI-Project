@@ -42,7 +42,7 @@ use yii\helpers\Url;
                         'items' => [
                             ['label' => 'Inventario', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
                             ['label' => 'Estimación de costes', 'iconStyle' => 'far', 'icon' => 'dot-circle'],
-                            ['label' => 'Detalles de catálogo', 'iconStyle' => 'far', 'icon' => 'dot-circle']
+                            ['label' => 'Detalles del catálogo', 'iconStyle' => 'far', 'icon' => 'dot-circle', 'url' => ['/warehouse/product/']]
                         ]
                     ], // *menu item
                     [
