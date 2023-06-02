@@ -9,7 +9,7 @@ use Yii;
  *
  * @property int $id
  * @property string $description
- * @property int $id_product_category
+ * @property int $product_category_id
  *
  * @property ProductCategory $productCategory
  */
@@ -29,11 +29,11 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description', 'id_product_category'], 'required'],
-            [['id_product_category'], 'integer'],
+            [['description', 'product_category_id'], 'required'],
+            [['product_category_id'], 'integer'],
             [['description'], 'string', 'max' => 128],
             [['description'], 'unique'],
-            [['id_product_category'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['id_product_category' => 'id']],
+            [['product_category_id'], 'exist', 'skipOnError' => true, 'targetClass' => ProductCategory::class, 'targetAttribute' => ['product_category_id' => 'id']],
         ];
     }
 
@@ -45,7 +45,7 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'description' => 'Description',
-            'id_product_category' => 'Id Product Category',
+            'product_category_id' => 'Product Category ID',
         ];
     }
 
@@ -56,6 +56,6 @@ class Product extends \yii\db\ActiveRecord
      */
     public function getProductCategory()
     {
-        return $this->hasOne(ProductCategory::class, ['id' => 'id_product_category']);
+        return $this->hasOne(ProductCategory::class, ['id' => 'product_category_id']);
     }
 }

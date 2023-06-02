@@ -30,16 +30,6 @@ use wbraganca\dynamicform\DynamicFormWidget;
         ]
     ]);
     ?>
-    
-    <!-- Card --> 
-    <div class="card shadow-sm rounded-0"> 
-        <div class="card-body p-1">
-            <?=
-            Html::submitButton('<i class="fas fa-plus"></i> Guardar registros', ['class' => 'btn w-100 btn-sm btn-primary']);
-            ?>
-        </div> <!-- ./card body --> 
-    </div>
-    <!-- ./card -->
 
     <div class="card shadow-sm rounded-0">
         <div class="card-header border-0 p-3">
