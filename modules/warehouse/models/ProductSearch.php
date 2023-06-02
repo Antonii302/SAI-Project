@@ -17,7 +17,7 @@ class ProductSearch extends Product
     public function rules()
     {
         return [
-            [['id', 'id_product_category'], 'integer'],
+            [['id', 'product_category_id'], 'integer'],
             [['description'], 'safe'],
         ];
     }
@@ -59,7 +59,7 @@ class ProductSearch extends Product
         // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
-            'id_product_category' => $this->id_product_category,
+            'product_category_id' => $this->product_category_id,
         ]);
 
         $query->andFilterWhere(['like', 'description', $this->description]);
